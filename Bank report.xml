@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Settings xmlns="http://v8.1c.ru/8.1/data-composition-system/settings" xmlns:dcscor="http://v8.1c.ru/8.1/data-composition-system/core" xmlns:style="http://v8.1c.ru/8.1/data/ui/style" xmlns:sys="http://v8.1c.ru/8.1/data/ui/fonts/system" xmlns:v8="http://v8.1c.ru/8.1/data/core" xmlns:v8ui="http://v8.1c.ru/8.1/data/ui" xmlns:web="http://v8.1c.ru/8.1/data/ui/colors/web" xmlns:win="http://v8.1c.ru/8.1/data/ui/colors/windows" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<selection>
+		<item xsi:type="SelectedItemField">
+			<field>СуммаНаНачало</field>
+		</item>
+		<item xsi:type="SelectedItemField">
+			<field>СуммаДт</field>
+		</item>
+		<item xsi:type="SelectedItemField">
+			<field>СуммаКт</field>
+		</item>
+		<item xsi:type="SelectedItemField">
+			<field>СуммаКтНДС</field>
+		</item>
+		<item xsi:type="SelectedItemField">
+			<field>СуммаКтБезНДСВВалюте</field>
+		</item>
+		<item xsi:type="SelectedItemField">
+			<field>СуммаКтВВалюте</field>
+		</item>
+		<item xsi:type="SelectedItemField">
+			<field>Курс</field>
+		</item>
+		<item xsi:type="SelectedItemField">
+			<field>СуммаНаКонец</field>
+		</item>
+	</selection>
+	<dataParameters>
+		<dcscor:item xsi:type="SettingsParameterValue">
+			<dcscor:parameter>НачалоПериода</dcscor:parameter>
+			<dcscor:value xsi:type="xs:dateTime">2021-10-01T00:00:00</dcscor:value>
+		</dcscor:item>
+		<dcscor:item xsi:type="SettingsParameterValue">
+			<dcscor:parameter>КонецПериода</dcscor:parameter>
+			<dcscor:value xsi:type="xs:dateTime">2021-10-31T23:59:59</dcscor:value>
+		</dcscor:item>
+		<dcscor:item xsi:type="SettingsParameterValue">
+			<dcscor:use>false</dcscor:use>
+			<dcscor:parameter>СчетНДС</dcscor:parameter>
+			<dcscor:value xsi:nil="true"/>
+		</dcscor:item>
+		<dcscor:item xsi:type="SettingsParameterValue">
+			<dcscor:use>false</dcscor:use>
+			<dcscor:parameter>СчетаЗП</dcscor:parameter>
+		</dcscor:item>
+	</dataParameters>
+	<order>
+		<item xsi:type="OrderItemField">
+			<field>Период</field>
+			<orderType>Asc</orderType>
+		</item>
+		<item xsi:type="OrderItemField">
+			<field>НомерЗаписи</field>
+			<orderType>Asc</orderType>
+		</item>
+	</order>
+	<outputParameters>
+		<dcscor:item xsi:type="SettingsParameterValue">
+			<dcscor:parameter>ВыводитьПараметрыДанных</dcscor:parameter>
+			<dcscor:value xsi:type="DataCompositionTextOutputType">DontOutput</dcscor:value>
+		</dcscor:item>
+		<dcscor:item xsi:type="SettingsParameterValue">
+			<dcscor:use>false</dcscor:use>
+			<dcscor:parameter>АвтоПозицияРесурсов</dcscor:parameter>
+			<dcscor:value xsi:type="DataCompositionResourcesAutoPosition">DontUse</dcscor:value>
+		</dcscor:item>
+	</outputParameters>
+	<item xsi:type="StructureItemGroup">
+		<name>Заголовок1</name>
+		<selection>
+			<item xsi:type="SelectedItemAuto">
+				<use>false</use>
+			</item>
+		</selection>
+		<outputParameters>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>МакетОформления</dcscor:parameter>
+				<dcscor:value xsi:type="xs:string">БезОформления</dcscor:value>
+			</dcscor:item>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:use>false</dcscor:use>
+				<dcscor:parameter>ВыводитьЗаголовок</dcscor:parameter>
+				<dcscor:value xsi:type="DataCompositionTextOutputType">Output</dcscor:value>
+			</dcscor:item>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ВариантИспользованияГруппировки</dcscor:parameter>
+				<dcscor:value xsi:type="DataCompositionGroupUseVariant">AdditionalInformation</dcscor:value>
+			</dcscor:item>
+		</outputParameters>
+	</item>
+	<item xsi:type="StructureItemTable">
+		<column>
+			<order>
+				<item xsi:type="OrderItemAuto"/>
+			</order>
+			<selection>
+				<item xsi:type="SelectedItemAuto"/>
+			</selection>
+			<conditionalAppearance>
+				<item>
+					<use>false</use>
+					<selection>
+						<item>
+							<field>СуммаДт</field>
+						</item>
+					</selection>
+					<filter>
+						<item xsi:type="FilterItemGroup">
+							<groupType>OrGroup</groupType>
+							<item xsi:type="FilterItemComparison">
+								<left xsi:type="dcscor:Field">СуммаКт</left>
+								<comparisonType>Equal</comparisonType>
+								<right xsi:type="xs:decimal">0</right>
+							</item>
+							<item xsi:type="FilterItemComparison">
+								<left xsi:type="dcscor:Field">СуммаДт</left>
+								<comparisonType>Equal</comparisonType>
+								<right xsi:type="xs:decimal">0</right>
+							</item>
+						</item>
+					</filter>
+					<appearance>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#000000</dcscor:value>
+						</dcscor:item>
+					</appearance>
+					<useInHierarchicalGroup>DontUse</useInHierarchicalGroup>
+					<useInOverall>DontUse</useInOverall>
+					<useInFieldsHeader>DontUse</useInFieldsHeader>
+					<useInHeader>DontUse</useInHeader>
+					<useInParameters>DontUse</useInParameters>
+					<useInFilter>DontUse</useInFilter>
+				</item>
+			</conditionalAppearance>
+			<outputParameters/>
+		</column>
+		<row>
+			<groupItems>
+				<item xsi:type="GroupItemField">
+					<field>Период</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>Документ</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>Описание</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>ПлатежПоЗП</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>НомерЗаписи</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>ДокументкнтТ1</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>ДокументкнтТ2</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>ДокументкнтGroup</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+			</groupItems>
+			<filter>
+				<item xsi:type="FilterItemComparison">
+					<left xsi:type="dcscor:Field">МаркетинговыеРасходы</left>
+					<comparisonType>Equal</comparisonType>
+					<right xsi:type="xs:boolean">false</right>
+				</item>
+				<item xsi:type="FilterItemComparison">
+					<left xsi:type="dcscor:Field">СчетВалютный</left>
+					<comparisonType>Equal</comparisonType>
+					<right xsi:type="xs:boolean">false</right>
+				</item>
+			</filter>
+			<order>
+				<item xsi:type="OrderItemAuto"/>
+			</order>
+			<selection>
+				<item xsi:type="SelectedItemField">
+					<field>Период</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<use>false</use>
+					<field>Документ</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>Описание</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаНачало</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаДт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКтНДС</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКтБезНДСВВалюте</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКтВВалюте</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>Курс</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаКонец</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>ДокументкнтТ1</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>ДокументкнтТ2</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>ДокументкнтGroup</field>
+				</item>
+			</selection>
+			<conditionalAppearance>
+				<item>
+					<selection>
+						<item>
+							<field>Документ</field>
+						</item>
+						<item>
+							<field>Описание</field>
+						</item>
+					</selection>
+					<filter>
+						<item xsi:type="FilterItemComparison">
+							<left xsi:type="dcscor:Field">ПлатежПоЗП</left>
+							<comparisonType>Equal</comparisonType>
+							<right xsi:type="xs:boolean">true</right>
+						</item>
+					</filter>
+					<appearance>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#D2FFFE</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#FF0000</dcscor:value>
+						</dcscor:item>
+					</appearance>
+					<useInHierarchicalGroup>DontUse</useInHierarchicalGroup>
+					<useInOverall>DontUse</useInOverall>
+					<useInFieldsHeader>DontUse</useInFieldsHeader>
+					<useInHeader>DontUse</useInHeader>
+					<useInParameters>DontUse</useInParameters>
+					<useInFilter>DontUse</useInFilter>
+				</item>
+			</conditionalAppearance>
+			<outputParameters>
+				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:parameter>ВыводитьОтбор</dcscor:parameter>
+					<dcscor:value xsi:type="DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:use>false</dcscor:use>
+					<dcscor:parameter>АвтоПозицияРесурсов</dcscor:parameter>
+					<dcscor:value xsi:type="DataCompositionResourcesAutoPosition">DontUse</dcscor:value>
+				</dcscor:item>
+			</outputParameters>
+		</row>
+		<outputParameters>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:use>false</dcscor:use>
+				<dcscor:parameter>АвтоПозицияРесурсов</dcscor:parameter>
+				<dcscor:value xsi:type="DataCompositionResourcesAutoPosition">DontUse</dcscor:value>
+			</dcscor:item>
+		</outputParameters>
+	</item>
+	<item xsi:type="StructureItemGroup">
+		<name>Заголовок2</name>
+		<order>
+			<item xsi:type="OrderItemAuto">
+				<use>false</use>
+			</item>
+		</order>
+		<selection>
+			<item xsi:type="SelectedItemAuto">
+				<use>false</use>
+			</item>
+		</selection>
+		<outputParameters>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>МакетОформления</dcscor:parameter>
+				<dcscor:value xsi:type="xs:string">БезОформления</dcscor:value>
+			</dcscor:item>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ВариантИспользованияГруппировки</dcscor:parameter>
+				<dcscor:value xsi:type="DataCompositionGroupUseVariant">AdditionalInformation</dcscor:value>
+			</dcscor:item>
+		</outputParameters>
+	</item>
+	<item xsi:type="StructureItemTable">
+		<column>
+			<order>
+				<item xsi:type="OrderItemAuto"/>
+			</order>
+			<selection>
+				<item xsi:type="SelectedItemAuto"/>
+			</selection>
+			<conditionalAppearance>
+				<item>
+					<use>false</use>
+					<selection>
+						<item>
+							<field>СуммаДт</field>
+						</item>
+					</selection>
+					<filter>
+						<item xsi:type="FilterItemGroup">
+							<groupType>OrGroup</groupType>
+							<item xsi:type="FilterItemComparison">
+								<left xsi:type="dcscor:Field">СуммаКт</left>
+								<comparisonType>Equal</comparisonType>
+								<right xsi:type="xs:decimal">0</right>
+							</item>
+							<item xsi:type="FilterItemComparison">
+								<left xsi:type="dcscor:Field">СуммаДт</left>
+								<comparisonType>Equal</comparisonType>
+								<right xsi:type="xs:decimal">0</right>
+							</item>
+						</item>
+					</filter>
+					<appearance>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#000000</dcscor:value>
+						</dcscor:item>
+					</appearance>
+					<useInHierarchicalGroup>DontUse</useInHierarchicalGroup>
+					<useInOverall>DontUse</useInOverall>
+					<useInFieldsHeader>DontUse</useInFieldsHeader>
+					<useInHeader>DontUse</useInHeader>
+					<useInParameters>DontUse</useInParameters>
+					<useInFilter>DontUse</useInFilter>
+				</item>
+			</conditionalAppearance>
+		</column>
+		<row>
+			<groupItems>
+				<item xsi:type="GroupItemField">
+					<field>Период</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>Документ</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>Описание</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>ПлатежПоЗП</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>НомерЗаписи</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+			</groupItems>
+			<filter>
+				<item xsi:type="FilterItemComparison">
+					<left xsi:type="dcscor:Field">МаркетинговыеРасходы</left>
+					<comparisonType>Equal</comparisonType>
+					<right xsi:type="xs:boolean">true</right>
+				</item>
+				<item xsi:type="FilterItemComparison">
+					<left xsi:type="dcscor:Field">СчетВалютный</left>
+					<comparisonType>Equal</comparisonType>
+					<right xsi:type="xs:boolean">false</right>
+				</item>
+			</filter>
+			<order>
+				<item xsi:type="OrderItemAuto"/>
+			</order>
+			<selection>
+				<item xsi:type="SelectedItemField">
+					<field>Период</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<use>false</use>
+					<field>Документ</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>Описание</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаНачало</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаДт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКтНДС</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКтБезНДСВВалюте</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКтВВалюте</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>Курс</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаКонец</field>
+				</item>
+			</selection>
+			<conditionalAppearance>
+				<item>
+					<selection>
+						<item>
+							<field>Документ</field>
+						</item>
+						<item>
+							<field>Описание</field>
+						</item>
+					</selection>
+					<filter>
+						<item xsi:type="FilterItemComparison">
+							<left xsi:type="dcscor:Field">ПлатежПоЗП</left>
+							<comparisonType>Equal</comparisonType>
+							<right xsi:type="xs:boolean">true</right>
+						</item>
+					</filter>
+					<appearance>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#D2FFFE</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#FF0000</dcscor:value>
+						</dcscor:item>
+					</appearance>
+					<useInHierarchicalGroup>DontUse</useInHierarchicalGroup>
+					<useInOverall>DontUse</useInOverall>
+					<useInFieldsHeader>DontUse</useInFieldsHeader>
+					<useInHeader>DontUse</useInHeader>
+					<useInParameters>DontUse</useInParameters>
+					<useInFilter>DontUse</useInFilter>
+				</item>
+			</conditionalAppearance>
+			<outputParameters>
+				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:parameter>ВыводитьОтбор</dcscor:parameter>
+					<dcscor:value xsi:type="DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+			</outputParameters>
+		</row>
+		<outputParameters/>
+	</item>
+	<item xsi:type="StructureItemGroup">
+		<name>Заголовок3</name>
+		<order>
+			<item xsi:type="OrderItemAuto">
+				<use>false</use>
+			</item>
+		</order>
+		<selection>
+			<item xsi:type="SelectedItemAuto">
+				<use>false</use>
+			</item>
+		</selection>
+		<outputParameters>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>МакетОформления</dcscor:parameter>
+				<dcscor:value xsi:type="xs:string">БезОформления</dcscor:value>
+			</dcscor:item>
+			<dcscor:item xsi:type="SettingsParameterValue">
+				<dcscor:parameter>ВариантИспользованияГруппировки</dcscor:parameter>
+				<dcscor:value xsi:type="DataCompositionGroupUseVariant">AdditionalInformation</dcscor:value>
+			</dcscor:item>
+		</outputParameters>
+	</item>
+	<item xsi:type="StructureItemTable">
+		<column>
+			<order>
+				<item xsi:type="OrderItemAuto"/>
+			</order>
+			<selection>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаНачало</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаДт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаКонец</field>
+				</item>
+			</selection>
+			<conditionalAppearance>
+				<item>
+					<use>false</use>
+					<selection>
+						<item>
+							<field>СуммаДт</field>
+						</item>
+					</selection>
+					<filter>
+						<item xsi:type="FilterItemGroup">
+							<groupType>OrGroup</groupType>
+							<item xsi:type="FilterItemComparison">
+								<left xsi:type="dcscor:Field">СуммаКт</left>
+								<comparisonType>Equal</comparisonType>
+								<right xsi:type="xs:decimal">0</right>
+							</item>
+							<item xsi:type="FilterItemComparison">
+								<left xsi:type="dcscor:Field">СуммаДт</left>
+								<comparisonType>Equal</comparisonType>
+								<right xsi:type="xs:decimal">0</right>
+							</item>
+						</item>
+					</filter>
+					<appearance>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#000000</dcscor:value>
+						</dcscor:item>
+					</appearance>
+					<useInHierarchicalGroup>DontUse</useInHierarchicalGroup>
+					<useInOverall>DontUse</useInOverall>
+					<useInFieldsHeader>DontUse</useInFieldsHeader>
+					<useInHeader>DontUse</useInHeader>
+					<useInParameters>DontUse</useInParameters>
+					<useInFilter>DontUse</useInFilter>
+				</item>
+			</conditionalAppearance>
+		</column>
+		<row>
+			<groupItems>
+				<item xsi:type="GroupItemField">
+					<field>Период</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>Документ</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>Описание</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>ПлатежПоЗП</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+				<item xsi:type="GroupItemField">
+					<field>НомерЗаписи</field>
+					<groupType>Items</groupType>
+					<periodAdditionType>None</periodAdditionType>
+					<periodAdditionBegin xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionBegin>
+					<periodAdditionEnd xsi:type="xs:dateTime">0001-01-01T00:00:00</periodAdditionEnd>
+				</item>
+			</groupItems>
+			<filter>
+				<item xsi:type="FilterItemComparison">
+					<left xsi:type="dcscor:Field">СчетВалютный</left>
+					<comparisonType>Equal</comparisonType>
+					<right xsi:type="xs:boolean">true</right>
+				</item>
+			</filter>
+			<order>
+				<item xsi:type="OrderItemAuto"/>
+			</order>
+			<selection>
+				<item xsi:type="SelectedItemField">
+					<field>Период</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<use>false</use>
+					<field>Документ</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>Описание</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаНачало</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаДт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаКт</field>
+				</item>
+				<item xsi:type="SelectedItemField">
+					<field>СуммаНаКонец</field>
+				</item>
+			</selection>
+			<conditionalAppearance>
+				<item>
+					<selection>
+						<item>
+							<field>Документ</field>
+						</item>
+						<item>
+							<field>Описание</field>
+						</item>
+					</selection>
+					<filter>
+						<item xsi:type="FilterItemComparison">
+							<left xsi:type="dcscor:Field">ПлатежПоЗП</left>
+							<comparisonType>Equal</comparisonType>
+							<right xsi:type="xs:boolean">true</right>
+						</item>
+					</filter>
+					<appearance>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветФона</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#D2FFFE</dcscor:value>
+						</dcscor:item>
+						<dcscor:item xsi:type="SettingsParameterValue">
+							<dcscor:parameter>ЦветТекста</dcscor:parameter>
+							<dcscor:value xsi:type="v8ui:Color">#FF0000</dcscor:value>
+						</dcscor:item>
+					</appearance>
+					<useInHierarchicalGroup>DontUse</useInHierarchicalGroup>
+					<useInOverall>DontUse</useInOverall>
+					<useInFieldsHeader>DontUse</useInFieldsHeader>
+					<useInHeader>DontUse</useInHeader>
+					<useInParameters>DontUse</useInParameters>
+					<useInFilter>DontUse</useInFilter>
+				</item>
+			</conditionalAppearance>
+			<outputParameters>
+				<dcscor:item xsi:type="SettingsParameterValue">
+					<dcscor:parameter>ВыводитьОтбор</dcscor:parameter>
+					<dcscor:value xsi:type="DataCompositionTextOutputType">DontOutput</dcscor:value>
+				</dcscor:item>
+			</outputParameters>
+		</row>
+	</item>
+</Settings>
